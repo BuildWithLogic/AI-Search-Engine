@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Search Engine Launcher</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            color: white;
+        }
+        .launcher {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .launcher h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .launcher p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .launch-btn {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .launch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .status.success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .status.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="launcher">
+        <h1>🧠 AI Search Engine</h1>
+        <p>Cross-Platform Intelligence Ready</p>
+        <button class="launch-btn" onclick="launchSearchEngine()">
+            🚀 Launch Search Engine
+        </button>
+        <div id="status" class="status" style="display: none;"></div>
+    </div>
+
+    <script>
+        async function launchSearchEngine() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            statusDiv.textContent = 'Checking backend connection...';
+            statusDiv.className = 'status';
+
+            try {
+                // Test backend connection
+                const response = await fetch('http://localhost:3001/api/analytics');
+                if (response.ok) {
+                    statusDiv.textContent = '✅ Backend connected! Opening search engine...';
+                    statusDiv.className = 'status success';
+                    
+                    // Redirect to the demo
+                    setTimeout(() => {
+                        window.location.href = 'demo.html';
+                    }, 1000);
+                } else {
+                    throw new Error('Backend not responding');
+                }
+            } catch (error) {
+                statusDiv.textContent = '⚠️ Backend not available. Opening demo with mock data...';
+                statusDiv.className = 'status error';
+                
+                // Still open demo, it will work with mock data
+                setTimeout(() => {
+                    window.location.href = 'demo.html';
+                }, 2000);
+            }
+        }
+
+        // Auto-check backend status on load
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('http://localhost:3001/api/analytics');
+                if (response.ok) {
+                    const statusDiv = document.getElementById('status');
+                    statusDiv.style.display = 'block';
+                    statusDiv.textContent = '✅ Backend server is running on port 3001';
+                    statusDiv.className = 'status success';
+                }
+            } catch (error) {
+                const statusDiv = document.getElementById('status');
+                statusDiv.style.display = 'block';
+                statusDiv.textContent = '⚠️ Backend server not detected. Demo will use mock data.';
+                statusDiv.className = 'status error';
+            }
+        });
+    </script>
+</body>
+</html>
