@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from './services/search.service';
-import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -22,9 +21,6 @@ import { AnalyticsService } from './services/analytics.service';
       <!-- Main Content -->
       <main class="main-content">
         <div class="container">
-          
-          <!-- Analytics Dashboard -->
-          <app-analytics></app-analytics>
           
           <!-- Search Interface -->
           <div class="search-section glass-effect">
@@ -248,13 +244,11 @@ export class AppComponent implements OnInit {
   ];
 
   constructor(
-    private searchService: SearchService,
-    private analyticsService: AnalyticsService
+    private searchService: SearchService
   ) {}
 
   ngOnInit() {
-    // Initialize real-time analytics
-    this.analyticsService.initializeRealTimeUpdates();
+    // Component initialization
   }
 
   onSearchPerformed(searchData: any) {

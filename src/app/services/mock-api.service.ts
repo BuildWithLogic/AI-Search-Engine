@@ -34,21 +34,6 @@ export class MockApiService {
     return of(crawlerStatuses).pipe(delay(300));
   }
 
-  getAnalytics(): Observable<any> {
-    const mockAnalytics = {
-      recentSearches: [
-        { query: 'machine learning', totalResults: 15, searchTime: 142, timestamp: new Date() },
-        { query: 'neural networks', totalResults: 12, searchTime: 156, timestamp: new Date() },
-        { query: 'deep learning', totalResults: 18, searchTime: 134, timestamp: new Date() }
-      ],
-      totalSearches: 1247,
-      avgSearchTime: 156,
-      activeCrawlers: 5
-    };
-    
-    return of(mockAnalytics).pipe(delay(200));
-  }
-
   private generateMockResults(query: string, filters: any): any[] {
     const results = [];
     const aiPlatforms = ['OpenAI GPT', 'Google Bard', 'Anthropic Claude', 'Microsoft Copilot', 'Meta LLaMA'];
