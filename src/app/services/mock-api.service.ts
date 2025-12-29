@@ -73,7 +73,7 @@ export class MockApiService {
   private generatePlatformResults(query: string, platform: string, count: number, contentTypes: string[], filters: any): any[] {
     const results = [];
     
-    const searchUrls = {
+    const searchUrls: { [key: string]: string } = {
       'OpenAI GPT': `https://www.google.com/search?q=site:openai.com+${encodeURIComponent(query)}`,
       'Google Bard': `https://www.google.com/search?q=Google+Bard+${encodeURIComponent(query)}`,
       'Anthropic Claude': `https://www.google.com/search?q=site:anthropic.com+${encodeURIComponent(query)}`,
