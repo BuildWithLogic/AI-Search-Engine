@@ -24,7 +24,7 @@ export class AnalyticsService {
   }
 
   initializeRealTimeUpdates() {
-    this.socket.on('searchAnalytics', (data) => {
+    this.socket.on('searchAnalytics', (data: any) => {
       this.realTimeAnalytics.next(data);
     });
   }
